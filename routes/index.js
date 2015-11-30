@@ -20,4 +20,8 @@ router.get('/', function(req, res) {
     })
 })
 
+router.use('/api/days', function (req, res, next) {
+  next();
+}, require('./api/days'))
+
 module.exports = router;
