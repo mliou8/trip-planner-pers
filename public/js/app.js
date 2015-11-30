@@ -21,7 +21,6 @@ $(function () {
     var $addPlaceButton = $('.add-place-button');
 
     var createItineraryItem = function (placeName) {
-
         var $item = $('<li></li>');
         var $div = $('<div class="itinerary-item"></div>');
 
