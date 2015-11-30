@@ -7,4 +7,4 @@ var DaySchema = new mongoose.Schema({
 	activities: {type: mongoose.Schema.Types.ObjectId, ref: 'Activity'},
 });
 
-module.exports = mongoose.model('Day', PlaceSchema);
+module.exports = mongoose.model('Day', DaySchema);

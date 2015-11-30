@@ -5,36 +5,40 @@ var Hotel = models.Hotel;
 var Restaurant = models.Restaurant;
 var Activity = models.Activity;
 var Promise = require('bluebird');
-var Day = models.Day;
+var Day = require('../../models/day')
 
-$.ajax({
-    method: 'GET',
-    url: '/api/days',
-    data: Day,
-    success: function (responseData) {
-        return responseData;
-    },
-    error: function (errorObj) {
-        return errorObj;
-    }
-});
-//
-// router.get('/api/days/:id', function (req, res, next) {
-//
-// })
-//
-// router.post('/api/days/:id/restaurants', function (req, res, next) {
-//
-// })
-//
-//
-// router.post('/api/days/:id/hotels', function (req, res, next) {
-//
-// })
-//
-// router.post('/api/days/:id/activities', function (req, res, next) {
-//
+router.get('/', function (req, res, next) {
+	Day.find({}).exec().then(function(day){
+		res.json(day);
+	}).then(null, function(err) {next(err)});
+})
+
+router.post('/', function (req, res, next) {
+	Day.find({}).exec().then(function(day){
+		res.json(day);
+	}).then(null, function(err) {next(err)});
+})
+
+// router.get('/', function (req, res, next) {
+// 	Day.create
+// 	res.send("Days page");
 // })
 
+// router.get('/:id', function (req, res, next) {
+// 	res.send(":id page");
+// })
+
+// router.post('/days/:id/restaurants', function (req, res, next) {
+
+// })
+
+
+// router.post('/days/:id/hotels', function (req, res, next) {
+
+// })
+
+// router.post('/days/:id/activities', function (req, res, next) {
+
+// })
 
 module.exports = router;
