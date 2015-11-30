@@ -14,9 +14,18 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/', function (req, res, next) {
-	Day.find({}).exec().then(function(day){
-		res.json(day);
-	}).then(null, function(err) {next(err)});
+	console.log('hhjvi');
+	var newDay = new Day ({
+		number: 123,
+		// hotel: 'Hotel123',
+		// restaurants: 'restaurant123',
+		// activities: 'activity123'
+	});
+	newDay.save()
+	.then(function (page) {
+		console.log('hi')
+	})
+	.then(null, next);
 })
 
 // router.get('/', function (req, res, next) {
