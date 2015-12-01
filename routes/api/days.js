@@ -13,6 +13,12 @@ router.get('/', function (req, res, next) {
 	}).then(null, function(err) {next(err)});
 })
 
+router.get('/:id', function (req, res, next) {
+	Day.findOne({number: req.params.id}).exec().then(function(day){
+		res.json(day);
+	}).then(null, function(err) {next(err)});
+})
+
 router.post('/', function (req, res, next) {
 	console.log('hhjvi');
 	var newDay = new Day ({

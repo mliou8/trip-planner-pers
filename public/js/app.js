@@ -20,13 +20,30 @@ $(function () {
     var $dayTitle = $('#day-title');
     var $addPlaceButton = $('.add-place-button');
 
-    var createItineraryItem = function (placeName) {
+    var createItineraryItem = function (placeName, sectionName, currentDayId) {
         var $item = $('<li></li>');
         var $div = $('<div class="itinerary-item"></div>');
 
         $item.append($div);
         $div.append('<span class="title">' + placeName + '</span>');
         $div.append('<button class="btn btn-xs btn-danger remove btn-circle">x</button>');
+
+        function createDay() {
+        $.ajax({
+            method: 'GET',
+            url: '/api/days/id',
+            success: function (responseData) {
+
+                // from routes/api/days.js
+                // push placeName, sectionName
+                console.log(responseData)
+            },
+            error: function (errorObj) {
+                console.log('errorObj')
+            }
+        })
+    }
+    createDay();
 
         return $item;
 
@@ -136,14 +153,13 @@ $(function () {
         var $listToAppendTo = $('#' + sectionName + '-list').find('ul');
         var placeName = $this.siblings('select').val();
         var placeObj = getPlaceObject(sectionName, placeName);
-
+        var currentDayId = currentDay;
         var createdMapMarker = drawLocation(map, placeObj.place[0].location, {
             icon: placeMapIcons[sectionName]
         });
 
         days[currentDay - 1].push({place: placeObj, marker: createdMapMarker, section: sectionName});
-        $listToAppendTo.append(createItineraryItem(placeName));
-
+        $listToAppendTo.append(createItineraryItem(placeName, sectionName, currentDayId));
         mapFit();
 
     });
@@ -171,23 +187,10 @@ $(function () {
         var currentNumOfDays = days.length;
         var $newDayButton = createDayButton(currentNumOfDays + 1);
 
-    function createDay() {
-        $.ajax({
-            method: 'POST',
-            url: '/api/days',
-            success: function (responseData) {
-                $addDayButton.before($newDayButton);
-                days.push([]);
-                setDayButtons();
-                setDay(currentNumOfDays + 1);
-            },
-            error: function (errorObj) {
-                console.log('errorObj')
-                // res.render(errorObj);
-            }
-        })
-    }
-    createDay();
+        $addDayButton.before($newDayButton);
+        days.push([]);
+        setDayButtons();
+        setDay(currentNumOfDays + 1);
 
     });
 
