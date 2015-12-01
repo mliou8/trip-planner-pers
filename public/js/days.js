@@ -5,7 +5,6 @@ $(function() {
 
 	$.get('api/days', function(data){
 		days = data;
-		console.log("data: ", data)
 	});
 
 	var $DayButton = $('.day-btn');

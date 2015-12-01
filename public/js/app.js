@@ -171,10 +171,23 @@ $(function () {
         var currentNumOfDays = days.length;
         var $newDayButton = createDayButton(currentNumOfDays + 1);
 
-        $addDayButton.before($newDayButton);
-        days.push([]);
-        setDayButtons();
-        setDay(currentNumOfDays + 1);
+    function createDay() {
+        $.ajax({
+            method: 'POST',
+            url: '/api/days',
+            success: function (responseData) {
+                $addDayButton.before($newDayButton);
+                days.push([]);
+                setDayButtons();
+                setDay(currentNumOfDays + 1);
+            },
+            error: function (errorObj) {
+                console.log('errorObj')
+                // res.render(errorObj);
+            }
+        })
+    }
+    createDay();
 
     });
 
